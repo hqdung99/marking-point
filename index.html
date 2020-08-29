@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./index.css" />
+  <title>Document</title>
+</head>
+
+
+<body>
+  <div class="container-form">
+    <input type='file' id="myFile" name="folder" webkitdirectory="true" directory multiple />
+    <div class="form-group mb-2" id="folder-name-container">
+    </div>
+    <button class="btn btn-success mb-2 ml-2" id="test2">Chấm bài</button>
+  </div>
+
+  <div class="loading-wrapper" id="loading-wrapper-id">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="table-wrapper" id="table-wrapper-id">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Họ Và Tên</th>
+          <th scope="col">Mã báo danh</th>
+          <th scope="col">Số câu đúng</th>
+          <th scope="col">Điểm</th>
+        </tr>
+      </thead>
+      <tbody id="test1">
+
+      </tbody>
+    </table>
+
+    <button class="btn btn-success mb-2 ml-2" id="export-csv">Export CSV</button>
+  </div>
+
+  <div id="test3">
+    <div class="alert alert-danger">
+      <strong>Failed!</strong> Filed marking!
+    </div>
+  </div>
+
+  <!-- You can also require other files to run in this process -->
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./renderer.js"></script>
+</body>
+
+</html>
