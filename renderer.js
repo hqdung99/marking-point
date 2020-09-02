@@ -93,9 +93,10 @@ function show(data) {
   }
 }
 
-function setFailed() {
+function setFailed(messageFailed) {
   document.getElementById("loading-wrapper-id").style.display = "none";
   document.getElementById("test3").style.display = "flex";
+  document.getElementById("failed-box").innerHTML = messageFailed;
 }
 
 async function getAPI(url, pathFile) {
@@ -122,15 +123,21 @@ async function getAPI(url, pathFile) {
   const jsonData = await data.text();
   const dataObject = JSON.parse(jsonData);
 
-  if (dataObject.status === "pending") {
-    setTimeout(getAPI(url), 3000);
-    return;
-  } else if (dataObject.status === "failed") {
-    setFailed();
+  if (dataObject.errorCode == -1) {
+    setFailed(dataObject.message);
     return;
   }
-  dataCSV = dataObject.data.listofpoints;
-  show(dataObject.data);
+
+  if (dataObject.data.status == -1) {
+    setFailed(dataObject.data.message);
+    return;
+  } else if (dataObject.data.status == 1 || dataObject.data.status == 2) {
+    setTimeout(getAPI(url), 3000);
+    return;
+  }
+
+  dataCSV = dataObject.data.data.listofpoints;
+  show(dataObject.data.data);
 }
 
 document.getElementById("test2").addEventListener("click", function () {
@@ -140,7 +147,7 @@ document.getElementById("test2").addEventListener("click", function () {
   const pathFile = document.getElementById("folder-name-container").textContent;
   // getAPI("https://run.mocky.io/v3/aa25fc9a-857a-4954-9fa9-8eb16412039d", pathFile);
   // getAPI("https://run.mocky.io/v3/a5c40f46-8e1c-4bcc-a682-e1c2b6d6f5e3", pathFile);
-  getAPI("https://run.mocky.io/v3/276a8d1c-79ef-43c4-90b4-329e69b6549a", pathFile);
+  getAPI("https://run.mocky.io/v3/f5b11662-10da-4088-99cd-72d350fba76a", pathFile);
 });
 
 document.getElementById("myFile").addEventListener("change", function () {
